@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.wyb.student.mapper.StudentMapper">
+
+    <select id="logIn" resultType="com.bysj.wyb.student.entity.Student">
+        select * from pd_student where nickname=#{nickName}
+    </select>
+    
+    <insert id="signIn" parameterType="com.bysj.wyb.student.entity.Student">
+        insert into pd_student (`uid`, `nickname`, `password`, `name`, `sex`, `classnumber`, `age`, `mobile`)
+        values
+        (#{uid},#{nickName},#{password},#{name},#{sex},#{classNumber},#{age},#{mobile})
+    </insert>
+    
+    <update id="updatePersonlInformation" parameterType="com.bysj.wyb.student.entity.Student">
+        update pd_student set nickName=#{nickName},name=#{name},sex=#{sex},classnumber=#{classNumber},age=#{age},mobile=#{mobile}
+        where uid=#{uid}
+    </update>
+
+    <update id="updatePassword" parameterType="string">
+        update pd_student set password=#{newPassword} where uid=#{uid}
+    </update>
+
+    <select id="findStudentByUid" resultType="com.bysj.wyb.student.entity.Student">
+        select * from pd_student where uid=#{uid}
+    </select>
+
+    <update id="updateForumName" parameterType="string">
+        update pd_student set forumname=#{name} where uid=#{uid}
+    </update>
+</mapper>
