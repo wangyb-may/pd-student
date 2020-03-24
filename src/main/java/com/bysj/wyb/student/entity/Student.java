@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Table(name = "pd_student")
 @Entity
 public class Student implements Serializable {
+
     @Id
     /**
      * 学生uid
