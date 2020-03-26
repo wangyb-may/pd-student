@@ -1,8 +1,11 @@
 package com.bysj.wyb.student.service;
 
 import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.vo.HomeworkVo;
 import com.bysj.wyb.student.vo.PageVo;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.List;
@@ -25,4 +28,12 @@ public interface HomeworkService {
      * @return
      */
     Result findHomeworkBySomething(PageVo pageVo);
+
+    /**
+     * 学生提交作业
+     * @param file
+     * @param student
+     * @return
+     */
+    Result uplodHomework(@RequestParam("file") MultipartFile file, Student student);
 }

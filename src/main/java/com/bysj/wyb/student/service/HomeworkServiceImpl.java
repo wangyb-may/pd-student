@@ -4,11 +4,13 @@ package com.bysj.wyb.student.service;
 import com.bysj.wyb.common.result.HandleResult;
 import com.bysj.wyb.common.result.PageResult;
 import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.HomeworkMapper;
 import com.bysj.wyb.student.vo.HomeworkVo;
 
 import com.bysj.wyb.student.vo.PageVo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -79,6 +81,13 @@ public class HomeworkServiceImpl implements HomeworkService {
         }
         pr.pageStarter(pageVo.getPageNum(),5, Arrays.asList(homeworkVos.toArray()));
         return pr.pageRes(pr);
+    }
+
+    @Override
+    public Result uplodHomework(MultipartFile file, Student student) {
+        HandleResult hr=new HandleResult();
+
+        return null;
     }
 
 
