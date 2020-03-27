@@ -4,6 +4,7 @@ package com.bysj.wyb.student.service;
 import com.bysj.wyb.common.result.HandleResult;
 import com.bysj.wyb.common.result.PageResult;
 import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.Feign.CommonFeign;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.HomeworkMapper;
 import com.bysj.wyb.student.vo.HomeworkVo;
@@ -24,6 +25,9 @@ public class HomeworkServiceImpl implements HomeworkService {
 
     @Resource
     HomeworkMapper homeworkMapper;
+
+    @Resource
+    CommonFeign commonFeign;
 
 
 
@@ -87,6 +91,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     public Result uplodHomework(MultipartFile file, Student student) {
         HandleResult hr=new HandleResult();
 
+        Result res=commonFeign.upload(file,"/");
         return null;
     }
 
