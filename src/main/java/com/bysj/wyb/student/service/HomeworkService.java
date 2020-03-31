@@ -1,6 +1,7 @@
 package com.bysj.wyb.student.service;
 
 import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.entity.Homework;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.vo.HomeworkVo;
 import com.bysj.wyb.student.vo.PageVo;
@@ -35,5 +36,5 @@ public interface HomeworkService {
      * @param student
      * @return
      */
-    Result uplodHomework(@RequestParam("file") MultipartFile file, Student student);
+    Result uplodHomework(@RequestParam("file") MultipartFile file, Student student, Homework homework);
 }

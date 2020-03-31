@@ -24,6 +24,8 @@ public class HomeworkVo {
 
     String upStatu;
 
+    String url;
+
     int score;
 
 

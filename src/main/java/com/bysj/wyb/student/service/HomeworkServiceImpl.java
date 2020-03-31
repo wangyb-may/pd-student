@@ -5,6 +5,7 @@ import com.bysj.wyb.common.result.HandleResult;
 import com.bysj.wyb.common.result.PageResult;
 import com.bysj.wyb.common.result.Result;
 import com.bysj.wyb.student.Feign.CommonFeign;
+import com.bysj.wyb.student.entity.Homework;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.HomeworkMapper;
 import com.bysj.wyb.student.vo.HomeworkVo;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -88,11 +91,27 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Result uplodHomework(MultipartFile file, Student student) {
+    public Result uplodHomework(MultipartFile file, Student student, Homework homework) {
         HandleResult hr=new HandleResult();
 
-        Result res=commonFeign.upload(file,"/");
-        return null;
+        Result res=commonFeign.upload(file,"homework/"+student.getNickName()+student.getName()+homework.getName());
+        if(null!=res.getData()){
+            int i=homeworkMapper.uploadHomework(res.getData().toString(),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+                    student.getUid(),
+                    homework.getId());
+            if(i==1){
+                PageVo temp=new PageVo();
+                temp.setUid(student.getUid());
+                temp.setPageNum(1);
+                temp.setIsShowHadUp(0);
+                return hr.outResultWithData("0","提交成功",showStuHomeworkById(temp));
+            }else {
+                return hr.outResultWithoutData("1","提交失败");
+            }
+        }else{
+            return hr.outResultWithoutData("1","提交失败");
+        }
     }
 
 

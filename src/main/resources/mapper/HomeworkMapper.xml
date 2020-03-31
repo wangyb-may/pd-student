@@ -25,5 +25,7 @@
         select score,status as upStatu,uptime as upTime from pd_homework_status where homeworkid=#{homeworkId} and uid=#{uid}
     </select>
 
-
+    <update id="uploadHomework" parameterType="string">
+        update pd_homework_status set upurl=#{url},status=1,uptime=#{upTime}
+    </update>
 </mapper>

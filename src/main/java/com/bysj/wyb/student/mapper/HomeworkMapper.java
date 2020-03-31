@@ -19,5 +19,7 @@ public interface HomeworkMapper {
 
     List<HomeworkVo> findHomeworkBySomething(String uid, String keywords);
 
+    int uploadHomework(String url,String upTime,String uid,String homeworkId);
+
 
 }
