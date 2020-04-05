@@ -26,6 +26,6 @@
     </select>
 
     <update id="uploadHomework" parameterType="string">
-        update pd_homework_status set upurl=#{url},status=1,uptime=#{upTime}
+        update pd_homework_status set upurl=#{url},status=1,uptime=#{upTime} where homeworkid=#{homeworkId} and uid=#{uid}
     </update>
 </mapper>

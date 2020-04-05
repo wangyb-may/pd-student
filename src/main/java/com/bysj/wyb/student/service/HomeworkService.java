@@ -33,8 +33,9 @@ public interface HomeworkService {
     /**
      * 学生提交作业
      * @param file
-     * @param student
+     * @param homeworkId
+     * @param uid
      * @return
      */
-    Result uplodHomework(@RequestParam("file") MultipartFile file, Student student, Homework homework);
+    Result uplodHomework(@RequestParam("file") MultipartFile file, String homeworkId,String uid);
 }

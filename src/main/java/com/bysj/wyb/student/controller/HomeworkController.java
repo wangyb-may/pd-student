@@ -6,6 +6,7 @@ import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.service.HomeworkService;
 import com.bysj.wyb.student.vo.HomeworkVo;
 import com.bysj.wyb.student.vo.PageVo;
+import com.bysj.wyb.student.vo.UpDataVo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +37,10 @@ public class HomeworkController {
         return homeworkService.findHomeworkBySomething(pageVo);
     }
 
-    public Result uploadHomework(@RequestBody Student student, @RequestBody Homework homework, @RequestParam MultipartFile file){
-        return homeworkService.uplodHomework(file,student,homework);
+    @RequestMapping(value = "/uploadHomework",produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public Result uploadHomework(@RequestParam("file") MultipartFile file, UpDataVo upDataVo){
+        System.out.println(file.getOriginalFilename());
+        return homeworkService.uplodHomework(file,upDataVo.getHomeworkId(),upDataVo.getUid());
     }
 }

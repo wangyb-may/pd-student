@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public interface CommonFeign {
 
     @RequestMapping(value = "/system/logCounter")
-    public void logCounter(@RequestParam String uid);
+    void logCounter(@RequestParam String uid);
 
     @RequestMapping(value = "/system/upload")
-    public Result upload(@RequestParam("file") MultipartFile file, @RequestParam String uploadCatalogAndName);
+    Result upload(@RequestParam("file") MultipartFile file,String uploadCatalogAndName);
 }

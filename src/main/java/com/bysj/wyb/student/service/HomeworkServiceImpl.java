@@ -91,18 +91,18 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Result uplodHomework(MultipartFile file, Student student, Homework homework) {
+    public Result uplodHomework(MultipartFile file, String homeworkId,String uid) {
         HandleResult hr=new HandleResult();
 
-        Result res=commonFeign.upload(file,"homework/"+student.getNickName()+student.getName()+homework.getName());
+        Result res=commonFeign.upload(file,"homework/"+homeworkId+uid);
         if(null!=res.getData()){
             int i=homeworkMapper.uploadHomework(res.getData().toString(),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                    student.getUid(),
-                    homework.getId());
+                    uid,
+                    homeworkId);
             if(i==1){
                 PageVo temp=new PageVo();
-                temp.setUid(student.getUid());
+                temp.setUid(uid);
                 temp.setPageNum(1);
                 temp.setIsShowHadUp(0);
                 return hr.outResultWithData("0","提交成功",showStuHomeworkById(temp));
