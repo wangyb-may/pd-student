@@ -1,6 +1,7 @@
 package com.bysj.wyb.student.service;
 
 
+
 import com.bysj.wyb.common.result.HandleResult;
 import com.bysj.wyb.common.result.PageResult;
 import com.bysj.wyb.common.result.Result;
@@ -31,6 +32,8 @@ public class HomeworkServiceImpl implements HomeworkService {
 
     @Resource
     CommonFeign commonFeign;
+
+
 
 
 
@@ -93,7 +96,6 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public Result uplodHomework(MultipartFile file, String homeworkId,String uid) {
         HandleResult hr=new HandleResult();
-
         Result res=commonFeign.upload(file,"homework/"+homeworkId+uid);
         if(null!=res.getData()){
             int i=homeworkMapper.uploadHomework(res.getData().toString(),
