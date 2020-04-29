@@ -17,15 +17,14 @@ import java.util.List;
 public interface HomeworkService {
     /**
      * 按照学生id搜索该名学生的作业
-     * @param uid,isShowUp
+     * @param pageVo
      * @return
      */
     Result showStuHomeworkById(PageVo pageVo);
 
     /**
      * 按照关键词搜索该名学生的作业
-     * @param uid
-     * @param keywords
+     * @param pageVo
      * @return
      */
     Result findHomeworkBySomething(PageVo pageVo);

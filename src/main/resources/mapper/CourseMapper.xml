@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.wyb.student.mapper.CourseMapper">
+    <select id="findCourseList" resultType="com.bysj.wyb.student.entity.Course">
+        select pc.id,pc.courseid,pc.name,pc.coursecontext,pc.classnumber,pc.createtime ,pt.name as teacher
+        from pd_course pc,pd_teacher pt
+        where pc.isdelete=0 and pc.teacher=pt.uid
+    </select>
+
+    <select id="findCourseListByKey" resultType="com.bysj.wyb.student.entity.Course">
+        select pc.id,pc.courseid,pc.name,pc.coursecontext,pc.classnumber,pc.createtime ,pt.name as teacher
+        from pd_course pc,pd_teacher pt
+        where
+        pc.isdelete=0
+        and
+        pc.teacher=pt.uid
+        and
+        concat(pt.name,pc.name) like "%"#{keywords}"%"
+    </select>
+
+    <insert id="chooseCourse" parameterType="string">
+        insert into pd_course_choose (uid,courseid,choosetime) values (#{userId},#{courseId},#{chooseTime})
+    </insert>
+    
+    <insert id="addHomeworkStatus" parameterType="string">
+        insert into pd_homework_status (homeworkid,uid) values (#{homeworkId},#{userId});
+    </insert>
+
+    <select id="findCourseHomework" resultType="com.bysj.wyb.student.entity.Homework">
+        select * from pd_homework where courseid=#{courseId}
+    </select>
+
+    <select id="findPersonalCourse" resultType="com.bysj.wyb.student.entity.Course">
+        select * from pd_course_choose where uid=#{userId}
+    </select>
+
+    <select id="findMyCourse" resultType="com.bysj.wyb.student.entity.Course">
+        select pc.id,pc.courseid,pc.name,pc.coursecontext,pc.classnumber,pc.createtime ,pt.name as teacher
+        from pd_course_choose as pcc,pd_course as pc,pd_teacher as pt
+        where pcc.uid=#{uid} and pc.isdelete=0 and pc.teacher=pt.uid and pcc.courseid=pc.courseid
+    </select>
+
+    <delete id="delMyCourse" parameterType="string">
+        delete from pd_course_choose where uid=#{uid} and courseid=#{courseId}
+    </delete>
+
+    <delete id="delMyCourseHomeworkStatu" parameterType="string">
+        DELETE from pd_homework_status where uid=#{uid} and homeworkid in(SELECT id from pd_homework where courseid=#{courseId})
+    </delete>
+</mapper>

@@ -4,21 +4,18 @@
 
 
     <select id="personalHomework" resultType="com.bysj.wyb.student.vo.HomeworkVo">
-        SELECT DISTINCT h.id as homeworkId,h.`name` as homeworkName,t.`name` as teacherName,c.name as courseName,h.createtime as createTime,h.context as context
-        from pd_homework as h
-        LEFT JOIN pd_student as s on s.classnumber=h.classnumber
-        LEFT JOIN pd_teacher as t on t.uid=h.teacherid
-        LEFT JOIN pd_course as c on c.courseid=h.courseid
-        where s.uid=#{uid}
+       SELECT ph.id as homeworkId,ph.name as homeworkName,pt.name as teacherName,pc.name as courseName,ph.createtime as createTime,ph.context as context
+        from pd_homework_status as phs,pd_homework as ph,pd_teacher as pt,pd_course as pc
+        where
+        phs.uid=#{uid} and ph.id=phs.homeworkid and ph.teacherid=pt.uid and ph.courseid=pc.courseid and pc.isdelete=0
     </select>
     
     <select id="findHomeworkBySomething" resultType="com.bysj.wyb.student.vo.HomeworkVo">
-        SELECT DISTINCT h.id as homeworkId,h.`name` as homeworkName,t.`name` as teacherName,c.name as courseName,h.createtime as createTime,h.context as context
-        from pd_homework as h
-        LEFT JOIN pd_student as s on s.classnumber=h.classnumber
-        LEFT JOIN pd_teacher as t on t.uid=h.teacherid
-        LEFT JOIN pd_course as c on c.courseid=h.courseid
-        where s.uid=#{uid} and concat(h.`name`,c.name,t.`name`) like "%"#{keywords}"%"
+        SELECT ph.id as homeworkId,ph.name as homeworkName,pt.name as teacherName,pc.name as courseName,ph.createtime as createTime,ph.context as context
+        from pd_homework_status as phs,pd_homework as ph,pd_teacher as pt,pd_course as pc
+        where
+        phs.uid=#{uid} and ph.id=phs.homeworkid and ph.teacherid=pt.uid and ph.courseid=pc.courseid and pc.isdelete=0
+        and concat(ph.`name`,pc.name,pt.`name`) like "%"#{keywords}"%"
     </select>
 
     <select id="showStatus" resultType="com.bysj.wyb.student.vo.HomeworkVo">
