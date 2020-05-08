@@ -1,10 +1,11 @@
 package com.bysj.wyb.student.service;
 
-import com.bysj.wyb.common.result.HandleResult;
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.HandleResult;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.entity.Course;
 import com.bysj.wyb.student.entity.Homework;
 import com.bysj.wyb.student.mapper.CourseMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author wangyb
  */
 @Service
+@Slf4j
 public class CourseServiceImpl implements CourseService{
 
     @Resource
@@ -102,6 +104,17 @@ public class CourseServiceImpl implements CourseService{
         }catch (Exception e){
             System.out.println(e.getMessage());
             return hr.outResultWithoutData("1","服务器异常");
+        }
+    }
+
+    @Override
+    public Result findAttachmentList(String uid) {
+        HandleResult hr=new HandleResult();
+        try {
+            return hr.outResultWithData("0","查询成功",courseMapper.findAttachmentByUid(uid));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return hr.outResultWithoutData("1","服务器异常,请联系管理员");
         }
     }
 

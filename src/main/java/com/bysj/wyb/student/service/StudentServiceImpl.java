@@ -1,8 +1,8 @@
 package com.bysj.wyb.student.service;
 
-import com.bysj.wyb.common.result.HandleResult;
-import com.bysj.wyb.common.result.IdWorker;
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.HandleResult;
+import com.bysj.wyb.student.result.IdWorker;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.Feign.CommonFeign;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.StudentMapper;

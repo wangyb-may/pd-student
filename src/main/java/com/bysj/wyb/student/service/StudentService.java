@@ -1,6 +1,6 @@
 package com.bysj.wyb.student.service;
 
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.entity.Student;
 
 import javax.servlet.http.HttpServletRequest;

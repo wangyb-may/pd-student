@@ -1,10 +1,9 @@
 package com.bysj.wyb.student.annotation;
 
-import com.bysj.wyb.common.result.HandleResult;
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.HandleResult;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.Feign.CommonFeign;
 import com.bysj.wyb.student.entity.Student;
-import com.bysj.wyb.student.mapper.StudentMapper;
 import com.bysj.wyb.student.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,11 +11,9 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

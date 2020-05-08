@@ -1,5 +1,6 @@
 package com.bysj.wyb.student.mapper;
 
+import com.bysj.wyb.student.entity.Attachment;
 import com.bysj.wyb.student.entity.Course;
 import com.bysj.wyb.student.entity.Homework;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,6 @@ public interface CourseMapper {
     int delMyCourse(String uid,String courseId);
 
     int delMyCourseHomeworkStatu(String uid,String courseId);
+
+    List<Attachment> findAttachmentByUid(String uid);
 }

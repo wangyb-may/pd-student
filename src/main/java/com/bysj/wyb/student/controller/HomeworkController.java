@@ -1,18 +1,13 @@
 package com.bysj.wyb.student.controller;
 
-import com.bysj.wyb.common.result.Result;
-import com.bysj.wyb.student.entity.Homework;
-import com.bysj.wyb.student.entity.Student;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.service.HomeworkService;
-import com.bysj.wyb.student.vo.HomeworkVo;
 import com.bysj.wyb.student.vo.PageVo;
 import com.bysj.wyb.student.vo.UpDataVo;
-import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author wangyb

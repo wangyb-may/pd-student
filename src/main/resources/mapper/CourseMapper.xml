@@ -4,7 +4,7 @@
     <select id="findCourseList" resultType="com.bysj.wyb.student.entity.Course">
         select pc.id,pc.courseid,pc.name,pc.coursecontext,pc.classnumber,pc.createtime ,pt.name as teacher
         from pd_course pc,pd_teacher pt
-        where pc.isdelete=0 and pc.teacher=pt.uid
+        where pc.isdelete=0 and pc.teacher=pt.uid and pc.isdelete=0
     </select>
 
     <select id="findCourseListByKey" resultType="com.bysj.wyb.student.entity.Course">
@@ -16,6 +16,8 @@
         pc.teacher=pt.uid
         and
         concat(pt.name,pc.name) like "%"#{keywords}"%"
+        and
+        pc.isdelete=0
     </select>
 
     <insert id="chooseCourse" parameterType="string">
@@ -47,4 +49,9 @@
     <delete id="delMyCourseHomeworkStatu" parameterType="string">
         DELETE from pd_homework_status where uid=#{uid} and homeworkid in(SELECT id from pd_homework where courseid=#{courseId})
     </delete>
+
+    <select id="findAttachmentByUid" resultType="com.bysj.wyb.student.entity.Attachment">
+        SELECT pa.*,pc.name as courseName from pd_course_choose as pcc,pd_attachment as pa,pd_course as pc
+        WHERE pcc.uid=#{uid} and pcc.courseid=pa.courseid and pc.courseid=pcc.courseid
+    </select>
 </mapper>

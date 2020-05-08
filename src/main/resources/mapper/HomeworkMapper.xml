@@ -25,4 +25,8 @@
     <update id="uploadHomework" parameterType="string">
         update pd_homework_status set upurl=#{url},status=1,uptime=#{upTime} where homeworkid=#{homeworkId} and uid=#{uid}
     </update>
+
+    <select id="upInformation" resultType="com.bysj.wyb.student.vo.StuHomeworkVo">
+        select ps.nickname as nickName,ps.name as studentName,ph.name as homeworkName from pd_student as ps, pd_homework as ph where ps.uid=#{uid} and ph.id=#{homeworkId}
+    </select>
 </mapper>

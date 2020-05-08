@@ -1,6 +1,6 @@
 package com.bysj.wyb.student.Feign;
 
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.configuration.MultipartSupportConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

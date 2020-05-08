@@ -1,6 +1,6 @@
 package com.bysj.wyb.student.controller;
 
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.service.CourseService;
 import com.bysj.wyb.student.vo.PageVo;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +45,10 @@ public class CourseController {
         String courseId=resBody.get("courseId");
         String uid=resBody.get("uid");
         return courseService.delMyCourse(uid,courseId);
+    }
+
+    @RequestMapping(value = "/findAttachmentList")
+    public Result findAttachmentList(@RequestBody Map<String,String> resBody){
+        return courseService.findAttachmentList(resBody.get("uid"));
     }
 }

@@ -1,9 +1,6 @@
 package com.bysj.wyb.student.service;
 
-import com.bysj.wyb.common.result.Result;
-import com.bysj.wyb.student.entity.Homework;
-import com.bysj.wyb.student.entity.Student;
-import com.bysj.wyb.student.vo.HomeworkVo;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.vo.PageVo;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;

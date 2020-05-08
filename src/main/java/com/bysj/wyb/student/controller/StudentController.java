@@ -1,13 +1,10 @@
 package com.bysj.wyb.student.controller;
 
-import com.bysj.wyb.common.annotation.UserLog;
-import com.bysj.wyb.common.result.HandleResult;
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.HandleResult;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.annotation.StudentCut;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.service.StudentService;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

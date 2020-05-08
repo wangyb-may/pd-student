@@ -2,16 +2,15 @@ package com.bysj.wyb.student.service;
 
 
 
-import com.bysj.wyb.common.result.HandleResult;
-import com.bysj.wyb.common.result.PageResult;
-import com.bysj.wyb.common.result.Result;
+import com.bysj.wyb.student.result.HandleResult;
+import com.bysj.wyb.student.result.PageResult;
+import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.Feign.CommonFeign;
-import com.bysj.wyb.student.entity.Homework;
-import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.HomeworkMapper;
 import com.bysj.wyb.student.vo.HomeworkVo;
 
 import com.bysj.wyb.student.vo.PageVo;
+import com.bysj.wyb.student.vo.StuHomeworkVo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -96,7 +95,8 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public Result uplodHomework(MultipartFile file, String homeworkId,String uid) {
         HandleResult hr=new HandleResult();
-        Result res=commonFeign.upload(file,"homework/"+homeworkId+uid);
+        StuHomeworkVo stuHomeworkVo=homeworkMapper.upInformation(uid,homeworkId);
+        Result res=commonFeign.upload(file,"homework/"+stuHomeworkVo.getNickName()+stuHomeworkVo.getStudentName()+stuHomeworkVo.getHomeworkName());
         if(null!=res.getData()){
             int i=homeworkMapper.uploadHomework(res.getData().toString(),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
