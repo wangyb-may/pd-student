@@ -16,5 +16,6 @@ public interface StudentMapper {
 
     int updatePassword(String uid,String newPassword);
 
-    int updateForumName(String name,String uid);
+    int upCircleImage(String uid,String url);
+
 }

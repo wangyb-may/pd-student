@@ -2,6 +2,7 @@ package com.bysj.wyb.student.service;
 
 import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.entity.Student;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,11 +37,6 @@ public interface StudentService {
      */
     Result updatePassword(String uid,String newPassword);
 
-    /**
-     * 修改论坛昵称
-     * @param name
-     * @param uid
-     * @return
-     */
-    Result updateForumName(String name,String uid);
+    Result upCircleImage(MultipartFile file,Student student);
+
 }

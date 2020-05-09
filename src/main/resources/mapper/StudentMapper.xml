@@ -25,7 +25,7 @@
         select * from pd_student where uid=#{uid}
     </select>
 
-    <update id="updateForumName" parameterType="string">
-        update pd_student set forumname=#{name} where uid=#{uid}
+    <update id="upCircleImage" parameterType="string">
+        update pd_student set imageurl=#{url} where uid=#{uid}
     </update>
 </mapper>

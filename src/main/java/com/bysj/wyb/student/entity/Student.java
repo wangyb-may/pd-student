@@ -73,5 +73,5 @@ public class Student implements Serializable {
     @Column(name = "forumname")
     String forumName;
 
-
+    int isdelete;
 }

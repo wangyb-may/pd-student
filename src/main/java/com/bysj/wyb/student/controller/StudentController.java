@@ -51,20 +51,8 @@ public class StudentController {
     //上传头像
     @RequestMapping(value = "/updatePort")
     public Result UpdatePort(@RequestParam("file") MultipartFile file, Student student){
-        HandleResult hr=new HandleResult();
-        String fileName=file.getOriginalFilename();
-        System.out.println(student.getUid());
-        return hr.outResultWithoutData("0",fileName);
+        return studentService.upCircleImage(file,student);
     }
 
-    @GetMapping(value = "/updateForumName")
-    public Result UpdateForumName(String uid,String forumName){
-        HandleResult hr=new HandleResult();
-        if(uid!=null&&uid!=""&&forumName!=null&&forumName!=""){
-            return studentService.updateForumName(forumName,uid);
-        }else{
-            return hr.outResultWithoutData("1","未知异常");
-        }
 
-    }
 }

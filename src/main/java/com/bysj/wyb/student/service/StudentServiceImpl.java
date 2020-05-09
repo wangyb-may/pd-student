@@ -6,14 +6,17 @@ import com.bysj.wyb.student.result.Result;
 import com.bysj.wyb.student.Feign.CommonFeign;
 import com.bysj.wyb.student.entity.Student;
 import com.bysj.wyb.student.mapper.StudentMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
 
 @Service
+@Slf4j
 public class StudentServiceImpl implements StudentService{
 
     @Resource
@@ -29,8 +32,12 @@ public class StudentServiceImpl implements StudentService{
     public Result logIn(Student student) {
         HandleResult hr=new HandleResult();
         Student ss=studentMapper.logIn(student);
+
         //验证登录密码、用户名是否正确，返回验证信息及相应数据
         if(ss!=null){
+            if(ss.getIsdelete()==1){
+                return hr.outResultWithoutData("1","该账号已经停用，请联系管理员！");
+            }
             if(ss.getPassword().equals(student.getPassword())){
                 //数据库中增加用户登录信息
                 commonFeign.logCounter(ss.getUid());
@@ -104,22 +111,21 @@ public class StudentServiceImpl implements StudentService{
         return null;
     }
 
-    //更新论坛昵称
     @Override
-    public Result updateForumName(String name,String uid) {
+    public Result upCircleImage(MultipartFile file,Student student) {
         HandleResult hr=new HandleResult();
-        if(1==studentMapper.updateForumName(name,uid)){
-            //更新redis
-            String key="students";
-            //更新redis集合中的登录信息集合
-            if(redisTemplate.hasKey(key)){
-                Student oldStu=studentMapper.findStudentByUid(uid);
-                redisTemplate.opsForList().remove(key,0,oldStu);
-                Student newStu=studentMapper.findStudentByUid(uid);
-                redisTemplate.opsForList().leftPush(key, newStu);
+        try{
+            Result res=commonFeign.upload(file,"image/port/"+student.getUid()+"port");
+            if(null!=res.getData()){
+                studentMapper.upCircleImage(student.getUid(),res.getData().toString());
+                return hr.outResultWithoutData("0","上传成功！");
+            }else{
+                return hr.outResultWithoutData("0","上传失败！");
             }
-            return hr.outResultWithData("0","修改成功",name);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            return hr.outResultWithoutData("0","服务异常");
         }
-        return null;
     }
+
 }
