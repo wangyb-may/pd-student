@@ -27,7 +27,8 @@ public class StudentController {
      * @param student
      * @return
      */
-    @StudentCut
+
+    //@StudentCut
     @RequestMapping(value = "/login")
     public Result StuLogIn(@RequestBody Student student){
         return studentService.logIn(student);
