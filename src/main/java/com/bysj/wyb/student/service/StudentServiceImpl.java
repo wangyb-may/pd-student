@@ -31,23 +31,28 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Result logIn(Student student) {
         HandleResult hr=new HandleResult();
-        Student ss=studentMapper.logIn(student);
-
-        //验证登录密码、用户名是否正确，返回验证信息及相应数据
-        if(ss!=null){
-            if(ss.getIsdelete()==1){
-                return hr.outResultWithoutData("1","该账号已经停用，请联系管理员！");
-            }
-            if(ss.getPassword().equals(student.getPassword())){
-                //数据库中增加用户登录信息
-                commonFeign.logCounter(ss.getUid());
-                return hr.outResultWithData("0","用户名密码验证通过",ss);
+        try{
+            Student ss=studentMapper.logIn(student);
+            //验证登录密码、用户名是否正确，返回验证信息及相应数据
+            if(ss!=null){
+                if(ss.getIsdelete()==1){
+                    return hr.outResultWithoutData("1","该账号已经停用，请联系管理员！");
+                }
+                if(ss.getPassword().equals(student.getPassword())){
+                    //数据库中增加用户登录信息
+                    commonFeign.logCounter(ss.getUid());
+                    return hr.outResultWithData("0","用户名密码验证通过",ss);
+                }else{
+                    return hr.outResultWithoutData("1","密码不正确");
+                }
             }else{
-                return hr.outResultWithoutData("1","密码不正确");
+                return hr.outResultWithoutData("1","用户名不存在！");
             }
-        }else{
-            return hr.outResultWithoutData("1","用户名不存在！");
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return hr.outResultWithoutData("0","服务异常，询问管理员是否有相同账号，如果有，请停用其中之一");
         }
+
     }
 
     @Override
