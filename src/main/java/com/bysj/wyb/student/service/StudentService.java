@@ -37,6 +37,12 @@ public interface StudentService {
      */
     Result updatePassword(String uid,String newPassword);
 
+    /**
+     * 上传头像
+     * @param file
+     * @param student
+     * @return
+     */
     Result upCircleImage(MultipartFile file,Student student);
 
 }
