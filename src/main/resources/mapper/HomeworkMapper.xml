@@ -9,7 +9,7 @@
         where
         phs.uid=#{uid} and ph.id=phs.homeworkid and ph.teacherid=pt.uid and ph.courseid=pc.courseid and pc.isdelete=0
     </select>
-    
+
     <select id="findHomeworkBySomething" resultType="com.bysj.wyb.student.vo.HomeworkVo">
         SELECT ph.id as homeworkId,ph.name as homeworkName,pt.name as teacherName,pc.name as courseName,ph.createtime as createTime,ph.context as context
         from pd_homework_status as phs,pd_homework as ph,pd_teacher as pt,pd_course as pc

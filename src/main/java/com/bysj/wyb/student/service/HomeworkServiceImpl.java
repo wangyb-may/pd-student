@@ -1,7 +1,6 @@
 package com.bysj.wyb.student.service;
 
 
-
 import com.bysj.wyb.student.result.HandleResult;
 import com.bysj.wyb.student.result.PageResult;
 import com.bysj.wyb.student.result.Result;
@@ -33,93 +32,90 @@ public class HomeworkServiceImpl implements HomeworkService {
     CommonFeign commonFeign;
 
 
-
-
-
     @Override
     public Result showStuHomeworkById(PageVo pageVo) {
-        PageResult pr=new PageResult();
-        HandleResult rs=new HandleResult();
-        List<HomeworkVo> homeworkVos=homeworkMapper.personalHomework(pageVo.getUid());
+        PageResult pr = new PageResult();
+        HandleResult rs = new HandleResult();
+        List<HomeworkVo> homeworkVos = homeworkMapper.personalHomework(pageVo.getUid());
 
-        for(HomeworkVo h : homeworkVos){
-            HomeworkVo littleHomework=homeworkMapper.showStatus(h.getHomeworkId(),pageVo.getUid());
-            if(null!=littleHomework){
+        for (HomeworkVo h : homeworkVos) {
+            HomeworkVo littleHomework = homeworkMapper.showStatus(h.getHomeworkId(), pageVo.getUid());
+            if (null != littleHomework) {
                 h.setScore(littleHomework.getScore());
                 h.setUpStatu(littleHomework.getUpStatu());
                 h.setUpTime(littleHomework.getUpTime());
-                if("1".equals(littleHomework.getUpStatu())){
+                if ("1".equals(littleHomework.getUpStatu())) {
                     h.setUpStatu("已提交");
-                }else{
+                } else {
                     h.setUpStatu("未提交");
                     h.setUpTime("未提交");
                 }
             }
         }
-        if(pageVo.getIsShowHadUp()==1){
-            homeworkVos=isShowUp(homeworkVos);
+        if (pageVo.getIsShowHadUp() == 1) {
+            homeworkVos = isShowUp(homeworkVos);
         }
-        pr.pageStarter(pageVo.getPageNum(),5, Arrays.asList(homeworkVos.toArray()));
+        pr.pageStarter(pageVo.getPageNum(), 5, Arrays.asList(homeworkVos.toArray()));
         return pr.pageRes(pr);
 
     }
 
     @Override
     public Result findHomeworkBySomething(PageVo pageVo) {
-        PageResult pr=new PageResult();
-        HandleResult rs=new HandleResult();
-        List<HomeworkVo> homeworkVos=homeworkMapper.findHomeworkBySomething(pageVo.getUid(),pageVo.getKeywords());
-        for(HomeworkVo h : homeworkVos){
-            HomeworkVo littleHomework=homeworkMapper.showStatus(h.getHomeworkId(),pageVo.getUid());
-            if(null!=littleHomework){
+        PageResult pr = new PageResult();
+        HandleResult rs = new HandleResult();
+        List<HomeworkVo> homeworkVos = homeworkMapper.findHomeworkBySomething(pageVo.getUid(), pageVo.getKeywords());
+        for (HomeworkVo h : homeworkVos) {
+            HomeworkVo littleHomework = homeworkMapper.showStatus(h.getHomeworkId(), pageVo.getUid());
+            if (null != littleHomework) {
                 h.setScore(littleHomework.getScore());
                 h.setUpStatu(littleHomework.getUpStatu());
                 h.setUpTime(littleHomework.getUpTime());
-                if("0".equals(h.getUpStatu())){
+                if ("0".equals(h.getUpStatu())) {
                     h.setUpStatu("未提交");
-                }else if("1".equals(h.getUpStatu())){
+                } else if ("1".equals(h.getUpStatu())) {
                     h.setUpStatu("已提交");
                 }
-                if(null==h.getUpTime()){
+                if (null == h.getUpTime()) {
                     h.setUpTime("未提交");
                 }
             }
         }
-        if(pageVo.getIsShowHadUp()==1){
-            homeworkVos=isShowUp(homeworkVos);
+        if (pageVo.getIsShowHadUp() == 1) {
+            homeworkVos = isShowUp(homeworkVos);
         }
-        pr.pageStarter(pageVo.getPageNum(),5, Arrays.asList(homeworkVos.toArray()));
+        pr.pageStarter(pageVo.getPageNum(), 5, Arrays.asList(homeworkVos.toArray()));
         return pr.pageRes(pr);
     }
 
     @Override
-    public Result uplodHomework(MultipartFile file, String homeworkId,String uid) {
-        HandleResult hr=new HandleResult();
-        StuHomeworkVo stuHomeworkVo=homeworkMapper.upInformation(uid,homeworkId);
-        Result res=commonFeign.upload(file,"homework/"+stuHomeworkVo.getNickName()+stuHomeworkVo.getStudentName()+stuHomeworkVo.getHomeworkName());
-        if(null!=res.getData()){
-            int i=homeworkMapper.uploadHomework(res.getData().toString(),
+    public Result uplodHomework(MultipartFile file, String homeworkId, String uid) {
+        HandleResult hr = new HandleResult();
+        StuHomeworkVo stuHomeworkVo = homeworkMapper.upInformation(uid, homeworkId);
+        Result res = commonFeign.upload(file, "homework/" + stuHomeworkVo.getNickName() + stuHomeworkVo.getStudentName() + stuHomeworkVo.getHomeworkName());
+        if (null != res.getData()) {
+            int i = homeworkMapper.uploadHomework(res.getData().toString(),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                     uid,
                     homeworkId);
-            if(i==1){
-                PageVo temp=new PageVo();
+            if (i == 1) {
+                PageVo temp = new PageVo();
                 temp.setUid(uid);
                 temp.setPageNum(1);
                 temp.setIsShowHadUp(0);
-                return hr.outResultWithData("0","提交成功",showStuHomeworkById(temp));
-            }else {
-                return hr.outResultWithoutData("1","提交失败");
+                return hr.outResultWithData("0", "提交成功", showStuHomeworkById(temp));
+            } else {
+                return hr.outResultWithoutData("1", "提交失败");
             }
-        }else{
-            return hr.outResultWithoutData("1","提交失败");
+        } else {
+            return hr.outResultWithoutData("1", "提交失败");
         }
     }
 
 
-    public List<HomeworkVo> isShowUp(List<HomeworkVo> homeworkVos){
-        for(int i=0;i<homeworkVos.size();i++){
-            if(("已提交").equals(homeworkVos.get(i).getUpStatu())&&null!=homeworkVos.get(i).getUpStatu()){
+    public List<HomeworkVo> isShowUp(List<HomeworkVo> homeworkVos) {
+        for (int i = 0; i < homeworkVos.size(); i++) {
+            if (("已提交").equals(homeworkVos.get(i).getUpStatu()) && null != homeworkVos.get(i).getUpStatu()) {
                 homeworkVos.remove(homeworkVos.get(i));
                 i--;
             }

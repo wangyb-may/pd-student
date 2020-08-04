@@ -20,22 +20,41 @@ public class HomeworkController {
     @Resource
     HomeworkService homeworkService;
 
+    /**
+     * 返回作业列表
+     *
+     * @param pageVo
+     * @return
+     */
     @RequestMapping(value = "/List")
-    public Result findHomeworkByPersonalId(@RequestBody PageVo pageVo){
+    public Result findHomeworkByPersonalId(@RequestBody PageVo pageVo) {
         //PageHelper.startPage(pageVo.getPageNum(),5);
         return homeworkService.showStuHomeworkById(pageVo);
     }
 
+    /**
+     * 关键词搜索作业
+     *
+     * @param pageVo
+     * @return
+     */
     @RequestMapping(value = "/findByKeyword")
-    public Result findHomeworkBySomething(@RequestBody PageVo pageVo){
+    public Result findHomeworkBySomething(@RequestBody PageVo pageVo) {
         //PageHelper.startPage(pageVo.getPageNum(),5);
         return homeworkService.findHomeworkBySomething(pageVo);
     }
 
-    @RequestMapping(value = "/uploadHomework",produces = "application/json;charset=utf-8")
+    /**
+     * 提交作业
+     *
+     * @param file
+     * @param upDataVo
+     * @return
+     */
+    @RequestMapping(value = "/uploadHomework", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Result uploadHomework(@RequestParam("file") MultipartFile file, UpDataVo upDataVo){
+    public Result uploadHomework(@RequestParam("file") MultipartFile file, UpDataVo upDataVo) {
         System.out.println(file.getOriginalFilename());
-        return homeworkService.uplodHomework(file,upDataVo.getHomeworkId(),upDataVo.getUid());
+        return homeworkService.uplodHomework(file, upDataVo.getHomeworkId(), upDataVo.getUid());
     }
 }

@@ -22,36 +22,36 @@ import java.util.List;
 public class HomeworkAspect {
 
     @Pointcut("@annotation(com.bysj.wyb.student.annotation.Homework)")
-    public void HomeworkLimit(){
+    public void HomeworkLimit() {
 
     }
 
     @Around("HomeworkLimit()")
-    public Result LimitHomework(ProceedingJoinPoint point){
-        HandleResult hr=new HandleResult();
-        Object[] request=point.getArgs();
-        PageVo data=(PageVo)request[0];
-        boolean isShow=false;
+    public Result LimitHomework(ProceedingJoinPoint point) {
+        HandleResult hr = new HandleResult();
+        Object[] request = point.getArgs();
+        PageVo data = (PageVo) request[0];
+        boolean isShow = false;
         //是否显示已提交的作业(1为不显示
-        if(1==data.getIsShowHadUp()){
-            isShow=true;
+        if (1 == data.getIsShowHadUp()) {
+            isShow = true;
         }
-        try{
-            Result rs=(Result)point.proceed();
-            List<HomeworkVo> homeworkVos=(List<HomeworkVo>)rs.getData();
-            if(isShow){
-                for(int i=0;i<homeworkVos.size();i++){
-                    if(("已提交").equals(homeworkVos.get(i).getUpStatu())&&null!=homeworkVos.get(i).getUpStatu()){
+        try {
+            Result rs = (Result) point.proceed();
+            List<HomeworkVo> homeworkVos = (List<HomeworkVo>) rs.getData();
+            if (isShow) {
+                for (int i = 0; i < homeworkVos.size(); i++) {
+                    if (("已提交").equals(homeworkVos.get(i).getUpStatu()) && null != homeworkVos.get(i).getUpStatu()) {
                         homeworkVos.remove(homeworkVos.get(i));
                         i--;
                     }
                 }
             }
-            return hr.outResultWithData("0","success",homeworkVos);
-        }catch (Throwable t){
+            return hr.outResultWithData("0", "success", homeworkVos);
+        } catch (Throwable t) {
             log.info("----------错误---------");
-            log.error(t.getMessage(),t);
-            return hr.outResultWithoutData("1",t.getMessage());
+            log.error(t.getMessage(), t);
+            return hr.outResultWithoutData("1", t.getMessage());
         }
 
     }

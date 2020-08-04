@@ -23,7 +23,7 @@
     <insert id="chooseCourse" parameterType="string">
         insert into pd_course_choose (uid,courseid,choosetime) values (#{userId},#{courseId},#{chooseTime})
     </insert>
-    
+
     <insert id="addHomeworkStatus" parameterType="string">
         insert into pd_homework_status (homeworkid,uid) values (#{homeworkId},#{userId});
     </insert>

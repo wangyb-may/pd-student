@@ -6,10 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author wangyb
+ */
 public interface StudentService {
 
     /**
      * 学生登录验证
+     *
      * @param student
      * @return
      */
@@ -17,6 +21,7 @@ public interface StudentService {
 
     /**
      * 学生注册
+     *
      * @param student
      * @return
      */
@@ -24,6 +29,7 @@ public interface StudentService {
 
     /**
      * 学生修改自身信息
+     *
      * @param student
      * @return
      */
@@ -31,18 +37,20 @@ public interface StudentService {
 
     /**
      * 学生修改密码
+     *
      * @param uid
      * @param newPassword
      * @return
      */
-    Result updatePassword(String uid,String newPassword);
+    Result updatePassword(String uid, String newPassword);
 
     /**
      * 上传头像
+     *
      * @param file
      * @param student
      * @return
      */
-    Result upCircleImage(MultipartFile file,Student student);
+    Result upCircleImage(MultipartFile file, Student student);
 
 }

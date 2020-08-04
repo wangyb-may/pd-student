@@ -18,37 +18,67 @@ public class CourseController {
     @Resource
     CourseService courseService;
 
+    /**
+     * 返回课程列表
+     *
+     * @param pageVo
+     * @return
+     */
     @RequestMapping(value = "/findList")
-    public Result findCourseList(@RequestBody(required = false) PageVo pageVo){
-        if(null!=pageVo){
+    public Result findCourseList(@RequestBody(required = false) PageVo pageVo) {
+        if (null != pageVo) {
             return courseService.findCourseListByKey(pageVo.getKeywords());
-        }else{
+        } else {
             return courseService.findCourseList();
         }
     }
 
+    /**
+     * 选择加入课程
+     *
+     * @param resBody
+     * @return
+     */
     @RequestMapping(value = "/chooseCourse")
-    public Result chooseCourse(@RequestBody Map<String,String> resBody){
-        String courseId=resBody.get("courseId");
-        String uid=resBody.get("uid");
-        return courseService.chooseCourse(courseId,uid);
+    public Result chooseCourse(@RequestBody Map<String, String> resBody) {
+        String courseId = resBody.get("courseId");
+        String uid = resBody.get("uid");
+        return courseService.chooseCourse(courseId, uid);
     }
 
+    /**
+     * 已选课程
+     *
+     * @param resBody
+     * @return
+     */
     @RequestMapping(value = "/myCourse")
-    public Result myCourse(@RequestBody Map<String,String> resBody){
-        String uid=resBody.get("uid");
+    public Result myCourse(@RequestBody Map<String, String> resBody) {
+        String uid = resBody.get("uid");
         return courseService.findMyCourse(uid);
     }
 
+    /**
+     * 取消选择课程
+     *
+     * @param resBody
+     * @return
+     */
     @RequestMapping(value = "/delMyCourse")
-    public Result delMyCourse(@RequestBody Map<String,String> resBody){
-        String courseId=resBody.get("courseId");
-        String uid=resBody.get("uid");
-        return courseService.delMyCourse(uid,courseId);
+    public Result delMyCourse(@RequestBody Map<String, String> resBody) {
+        String courseId = resBody.get("courseId");
+        String uid = resBody.get("uid");
+        return courseService.delMyCourse(uid, courseId);
     }
 
+    /**
+     * 查看课程附件信息
+     *
+     * @param resBody
+     * @return
+     */
     @RequestMapping(value = "/findAttachmentList")
-    public Result findAttachmentList(@RequestBody Map<String,String> resBody){
+    public Result findAttachmentList(@RequestBody Map<String, String> resBody) {
         return courseService.findAttachmentList(resBody.get("uid"));
     }
 }

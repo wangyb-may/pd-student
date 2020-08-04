@@ -22,37 +22,63 @@ public class StudentController {
     @Resource
     StudentService studentService;
 
+
     /**
      * 学生登录
+     *
      * @param student
      * @return
      */
-
     //@StudentCut
     @RequestMapping(value = "/login")
-    public Result StuLogIn(@RequestBody Student student){
+    public Result StuLogIn(@RequestBody Student student) {
         return studentService.logIn(student);
     }
 
+    /**
+     * 注册（已取消）
+     *
+     * @param student
+     * @return
+     */
     @RequestMapping(value = "/signIn")
-    public Result StuSignIn(@RequestBody Student student){
+    public Result StuSignIn(@RequestBody Student student) {
         return studentService.SignIn(student);
     }
 
+    /**
+     * 更新学生信息
+     *
+     * @param student
+     * @return
+     */
     @RequestMapping(value = "/update")
-    public Result UpdatePersonal(@RequestBody Student student){
+    public Result UpdatePersonal(@RequestBody Student student) {
         return studentService.updatePersonalInformation(student);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param uid
+     * @param newPassword
+     * @return
+     */
     @GetMapping(value = "/updatePassword")
-    public Result UpdatePassword(@RequestParam String uid, @RequestParam String newPassword){
-        return studentService.updatePassword(uid,newPassword);
+    public Result UpdatePassword(@RequestParam String uid, @RequestParam String newPassword) {
+        return studentService.updatePassword(uid, newPassword);
     }
 
-    //上传头像
+    /**
+     * 上传头像
+     *
+     * @param file
+     * @param student
+     * @return
+     */
     @RequestMapping(value = "/updatePort")
-    public Result UpdatePort(@RequestParam("file") MultipartFile file, Student student){
-        return studentService.upCircleImage(file,student);
+    public Result UpdatePort(@RequestParam("file") MultipartFile file, Student student) {
+        return studentService.upCircleImage(file, student);
     }
 
 

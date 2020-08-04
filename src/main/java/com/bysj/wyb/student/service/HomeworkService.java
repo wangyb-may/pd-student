@@ -14,6 +14,7 @@ import java.util.List;
 public interface HomeworkService {
     /**
      * 按照学生id搜索该名学生的作业
+     *
      * @param pageVo
      * @return
      */
@@ -21,6 +22,7 @@ public interface HomeworkService {
 
     /**
      * 按照关键词搜索该名学生的作业
+     *
      * @param pageVo
      * @return
      */
@@ -28,10 +30,11 @@ public interface HomeworkService {
 
     /**
      * 学生提交作业
+     *
      * @param file
      * @param homeworkId
      * @param uid
      * @return
      */
-    Result uplodHomework(@RequestParam("file") MultipartFile file, String homeworkId,String uid);
+    Result uplodHomework(@RequestParam("file") MultipartFile file, String homeworkId, String uid);
 }

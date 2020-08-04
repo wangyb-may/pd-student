@@ -5,13 +5,13 @@
     <select id="logIn" resultType="com.bysj.wyb.student.entity.Student">
         select * from pd_student where nickname=#{nickName}
     </select>
-    
+
     <insert id="signIn" parameterType="com.bysj.wyb.student.entity.Student">
         insert into pd_student (`uid`, `nickname`, `password`, `name`, `sex`, `classnumber`, `age`, `mobile`)
         values
         (#{uid},#{nickName},#{password},#{name},#{sex},#{classNumber},#{age},#{mobile})
     </insert>
-    
+
     <update id="updatePersonlInformation" parameterType="com.bysj.wyb.student.entity.Student">
         update pd_student set nickName=#{nickName},name=#{name},sex=#{sex},classnumber=#{classNumber},age=#{age},mobile=#{mobile}
         where uid=#{uid}

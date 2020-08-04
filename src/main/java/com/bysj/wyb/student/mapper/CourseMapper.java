@@ -13,13 +13,13 @@ import java.util.List;
 @Mapper
 public interface CourseMapper {
 
-    public List<Course> findCourseList();
+    List<Course> findCourseList();
 
-    public List<Course> findCourseListByKey(String keyworkds);
+    List<Course> findCourseListByKey(String keyworkds);
 
-    public int chooseCourse(String courseId,String userId,String chooseTime);
+    int chooseCourse(String courseId, String userId, String chooseTime);
 
-    public int addHomeworkStatus(String homeworkId,String userId);
+    int addHomeworkStatus(String homeworkId, String userId);
 
     List<Homework> findCourseHomework(String courseId);
 
@@ -27,9 +27,9 @@ public interface CourseMapper {
 
     List<Course> findMyCourse(String uid);
 
-    int delMyCourse(String uid,String courseId);
+    int delMyCourse(String uid, String courseId);
 
-    int delMyCourseHomeworkStatu(String uid,String courseId);
+    int delMyCourseHomeworkStatu(String uid, String courseId);
 
     List<Attachment> findAttachmentByUid(String uid);
 }

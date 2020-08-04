@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author wangyb
  */
-@FeignClient(name = "pd-common",configuration = MultipartSupportConfig.class)
+@FeignClient(name = "pd-common", configuration = MultipartSupportConfig.class)
 public interface CommonFeign {
 
     @RequestMapping(value = "/system/logCounter")
-    void logCounter(@RequestParam String uid);
+    void logCounter(@RequestParam(value = "uid") String uid);
 
-    @RequestMapping(value = "/system/upload",method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    Result upload(@RequestPart("file") MultipartFile file, @RequestParam String uploadCatalogAndName);
+    @RequestMapping(value = "/system/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Result upload(@RequestPart("file") MultipartFile file, @RequestParam(value = "uploadCatalogAndName") String uploadCatalogAndName);
 }

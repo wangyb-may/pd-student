@@ -17,7 +17,7 @@ public class Student implements Serializable {
     /**
      * 学生uid
      */
-    String uid;
+            String uid;
 
     /**
      * 登录名
@@ -43,7 +43,7 @@ public class Student implements Serializable {
     /**
      * 学生所在班级号
      */
-    @Column(name="classnumber")
+    @Column(name = "classnumber")
     String classNumber;
 
     /**
@@ -59,7 +59,7 @@ public class Student implements Serializable {
     /**
      * 头像地址
      */
-    @Column(name="imageurl")
+    @Column(name = "imageurl")
     String imageUrl;
 
     /**
